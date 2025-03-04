@@ -4,6 +4,23 @@
 	"description": "A development kit for enabling cross-chain liquidity between Solana and Flow",
 	"main": "dist/index.js",
 	"types": "dist/index.d.ts",
+	"exports": {
+		".": {
+			"import": "./dist/index.js",
+			"require": "./dist/index.js",
+			"types": "./dist/index.d.ts"
+		},
+		"./auth": {
+			"import": "./dist/auth/index.js",
+			"require": "./dist/auth/index.js",
+			"types": "./dist/auth/index.d.ts"
+		},
+		"./bridges": {
+			"import": "./dist/bridges/index.js",
+			"require": "./dist/bridges/index.js",
+			"types": "./dist/bridges/index.d.ts"
+		}
+	},
 	"scripts": {
 		"build": "tsc",
 		"test": "jest",
@@ -26,9 +43,9 @@
 		"@magic-sdk/admin": "^1.10.0",
 		"@privy-io/server-auth": "^1.0.0",
 		"@solana/web3.js": "^1.87.6",
+		"@onflow/fcl": "^1.4.0",
 		"axios": "^1.6.2",
-		"ethers": "^5.7.2",
-		"flow-js-sdk": "^1.2.2"
+		"ethers": "^5.7.2"
 	},
 	"devDependencies": {
 		"@types/jest": "^29.5.10",

@@ -7,9 +7,7 @@ The Liquidity Development Kit (LDK) provides a simple way to add cross-chain liq
 Install the LDK using npm or yarn:
 
 ```bash
-npm install liquidity-development-kit
-# or
-yarn add liquidity-development-kit
+pnpm install liquidity-development-kit
 ```
 
 ## Basic Setup
