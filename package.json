@@ -40,10 +40,13 @@
 	"license": "MIT",
 	"dependencies": {
 		"@layerzerolabs/lz-sdk": "^0.0.41",
+		"@magic-ext/flow": "^8.1.0",
+		"@magic-ext/oauth": "^7.1.0",
+		"@magic-ext/solana": "^11.1.0",
 		"@magic-sdk/admin": "^1.10.0",
+		"@onflow/fcl": "^1.4.0",
 		"@privy-io/server-auth": "^1.0.0",
 		"@solana/web3.js": "^1.87.6",
-		"@onflow/fcl": "^1.4.0",
 		"axios": "^1.6.2",
 		"ethers": "^5.7.2"
 	},

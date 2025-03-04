@@ -1,11 +1,15 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { TokenDeposit, UserData } from 'liquidity-development-kit';
+import {
+	LiquidityKit,
+	TokenDeposit,
+	UserData,
+} from 'liquidity-development-kit';
 
 interface UserBalancesProps {
 	user: UserData;
-	ldk: any; // Using any for simplicity in this example
+	ldk: LiquidityKit;
 }
 
 interface Balance {
