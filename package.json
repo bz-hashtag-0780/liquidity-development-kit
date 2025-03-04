@@ -1,0 +1,48 @@
+{
+	"name": "liquidity-development-kit",
+	"version": "0.1.0",
+	"description": "A development kit for enabling cross-chain liquidity between Solana and Flow",
+	"main": "dist/index.js",
+	"types": "dist/index.d.ts",
+	"scripts": {
+		"build": "tsc",
+		"test": "jest",
+		"lint": "eslint . --ext .ts",
+		"dev": "tsc --watch"
+	},
+	"keywords": [
+		"blockchain",
+		"cross-chain",
+		"solana",
+		"flow",
+		"liquidity",
+		"bridge",
+		"layerzero"
+	],
+	"author": "",
+	"license": "MIT",
+	"dependencies": {
+		"@layerzerolabs/lz-sdk": "^0.0.41",
+		"@magic-sdk/admin": "^1.10.0",
+		"@privy-io/server-auth": "^1.0.0",
+		"@solana/web3.js": "^1.87.6",
+		"axios": "^1.6.2",
+		"ethers": "^5.7.2",
+		"flow-js-sdk": "^1.2.2"
+	},
+	"devDependencies": {
+		"@types/jest": "^29.5.10",
+		"@types/node": "^20.10.0",
+		"@typescript-eslint/eslint-plugin": "^6.12.0",
+		"@typescript-eslint/parser": "^6.12.0",
+		"eslint": "^8.54.0",
+		"jest": "^29.7.0",
+		"ts-jest": "^29.1.1",
+		"typescript": "^5.3.2"
+	},
+	"peerDependencies": {
+		"magic-sdk": "^21.3.1",
+		"@privy-io/react-auth": "^1.43.3",
+		"next": ">=13.0.0"
+	}
+}
