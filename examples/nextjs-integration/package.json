@@ -7,19 +7,20 @@
 		"build": "next build",
 		"start": "next start",
 		"lint": "next lint",
+		"clean": "rm -rf ../../dist && cd ../.. && pnpm build",
 		"postinstall": "cd ../.. && pnpm build && cd examples/nextjs-integration"
 	},
 	"dependencies": {
-		"@magic-ext/flow": "^8.1.0",
-		"@magic-ext/oauth": "^7.1.0",
-		"@magic-ext/solana": "^11.1.0",
-		"@onflow/fcl": "^1.4.0",
-		"@solana/web3.js": "^1.87.6",
-		"magic-sdk": "^21.3.1",
+		"@magic-ext/flow": "^24.0.0",
+		"@magic-ext/oauth": "^23.0.0",
+		"@magic-ext/solana": "^26.0.0",
+		"@onflow/fcl": "^1.3.2",
+		"@solana/web3.js": "^1.73.0",
+		"liquidity-development-kit": "file:../..",
+		"magic-sdk": "^18.1.0",
 		"next": "13.5.4",
-		"react": "^18.2.0",
-		"react-dom": "^18.2.0",
-		"liquidity-development-kit": "link:../../"
+		"react": "^18",
+		"react-dom": "^18"
 	},
 	"devDependencies": {
 		"@types/node": "^20.10.0",

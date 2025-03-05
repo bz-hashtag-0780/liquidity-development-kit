@@ -9,34 +9,34 @@ importers:
   .:
     dependencies:
       '@magic-ext/flow':
-        specifier: ^8.1.0
-        version: 8.7.2(@onflow/fcl@1.13.5(@types/react@18.3.18)(bufferutil@4.0.9)(encoding@0.1.13)(google-protobuf@3.21.4)(jiti@1.21.7)(postcss@8.5.3)(react@18.3.1)(typescript@5.8.2)(utf-8-validate@5.0.10)(zod@3.24.2))(@onflow/types@1.4.1)
+        specifier: ^24.0.0
+        version: 24.0.0(@onflow/fcl@1.13.5(@types/react@18.3.18)(bufferutil@4.0.9)(encoding@0.1.13)(google-protobuf@3.21.4)(jiti@1.21.7)(postcss@8.5.3)(react@18.3.1)(typescript@5.8.2)(utf-8-validate@5.0.10)(zod@3.24.2))(@onflow/types@1.4.1)
       '@magic-ext/oauth':
-        specifier: ^7.1.0
-        version: 7.6.2
+        specifier: ^23.0.0
+        version: 23.0.0
       '@magic-ext/solana':
-        specifier: ^11.1.0
-        version: 11.1.0
+        specifier: ^26.0.0
+        version: 26.0.0(@solana/web3.js@1.98.0(bufferutil@4.0.9)(encoding@0.1.13)(utf-8-validate@5.0.10))
       '@onflow/fcl':
-        specifier: ^1.4.0
+        specifier: ^1.3.2
         version: 1.13.5(@types/react@18.3.18)(bufferutil@4.0.9)(encoding@0.1.13)(google-protobuf@3.21.4)(jiti@1.21.7)(postcss@8.5.3)(react@18.3.1)(typescript@5.8.2)(utf-8-validate@5.0.10)(zod@3.24.2)
       '@solana/web3.js':
-        specifier: ^1.87.6
+        specifier: ^1.73.0
         version: 1.98.0(bufferutil@4.0.9)(encoding@0.1.13)(utf-8-validate@5.0.10)
       liquidity-development-kit:
         specifier: link:../../
         version: link:../..
       magic-sdk:
-        specifier: ^21.3.1
-        version: 21.5.0
+        specifier: ^18.1.0
+        version: 18.6.0
       next:
         specifier: 13.5.4
         version: 13.5.4(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       react:
-        specifier: ^18.2.0
+        specifier: ^18
         version: 18.3.1
       react-dom:
-        specifier: ^18.2.0
+        specifier: ^18
         version: 18.3.1(react@18.3.1)
     devDependencies:
       '@types/node':
@@ -172,34 +172,33 @@ packages:
   '@lit/reactive-element@1.6.3':
     resolution: {integrity: sha512-QuTgnG52Poic7uM1AN5yJ09QMe0O28e10XzSvWDz02TJiiKee4stsiownEIadWm8nYzyDAyT+gKzUoZmiWQtsQ==}
 
-  '@magic-ext/flow@8.7.2':
-    resolution: {integrity: sha512-rZhF0dW+vg1B0pvuiT4/MucTJbxShkrCHIie0ctLyWwsoZdZ4vdMvoNTLErLEU8G/t/86drbTfBiyLDDBwMnxQ==}
+  '@magic-ext/flow@24.0.0':
+    resolution: {integrity: sha512-ZpIe5rNUEORDIUYR+5LfvU4Vnm8/M3v3eGVdJ/K4nvAPFyxF0h3ZzWg1ic10rYnCP16ruk1k/ddb/aggwSxgdA==}
     peerDependencies:
-      '@onflow/fcl': 0.0.41
-      '@onflow/types': 0.0.3
+      '@onflow/fcl': ^1.4.1
+      '@onflow/types': ^1.1.0
 
-  '@magic-ext/oauth@7.6.2':
-    resolution: {integrity: sha512-yqQBdtkMouD+owAJkPlevLbal/iCREH/D3PmDW9a7Dsfjy2xs557oIpGkLSZexTIHd3Cxga9hWNpdqFukUfzYg==}
+  '@magic-ext/oauth@23.0.0':
+    resolution: {integrity: sha512-avHjVIshi931SwfvZDqjO2+9P084JGOlE2pWcUxzEBr2abKl5bpOMQfX1dF6OW5hEWirtIA9c7WDteKp/hqasA==}
 
-  '@magic-ext/solana@11.1.0':
-    resolution: {integrity: sha512-xic3EZIF3u3DhXdjZtDdMnW62TD+oRzLL3e/f3dRInSPoID1ljqUwzTSu31BHPK+QZ1WGlCW+WFyTZ+2duy/hQ==}
-
-  '@magic-sdk/commons@17.5.0':
-    resolution: {integrity: sha512-2KdLT6KTNnToOuTb92a/Ur/zGfV8/M89W+wqrcumcSmdOOyD65C80q2Gd70OF2+HZEOPEfBp8vBTfOGyRSb8fg==}
+  '@magic-ext/solana@26.0.0':
+    resolution: {integrity: sha512-variwvW+jOYypFmVE9XpfCjm9lkLBg6jsfkN/kLiSonMOgFlqX0UzOOF1+IpwQuy4wjlLBkCunm16l6VXOGjbg==}
     peerDependencies:
-      '@magic-sdk/provider': '>=18.6.0'
-      '@magic-sdk/types': '>=15.8.0'
+      '@solana/web3.js': ^1.87.2
 
-  '@magic-sdk/provider@21.5.0':
-    resolution: {integrity: sha512-q2UAww4Hv8qDg+GYUqmUhdLPL5lfmYXpD6HN1IMI1HBU/SG2hLMVs/28u+RrCC1GddrqTTDal9GXONd3OHurHA==}
+  '@magic-sdk/commons@14.6.0':
+    resolution: {integrity: sha512-xYSXDZQ2nhbydZCsphaaMpcl5glsvH+yLkKkQJfXPwaHpow68yFC6z+/lbbqQqvR6vNPdWN+7dbKbTJHI+CnUQ==}
+    peerDependencies:
+      '@magic-sdk/provider': '>=4.3.0'
+      '@magic-sdk/types': '>=3.1.1'
+
+  '@magic-sdk/provider@18.6.0':
+    resolution: {integrity: sha512-7Q2MpUrVRWCBAbsUihsldY+4vqXgHCzqLtK5fvbnCfLGGjmjWf15ALMFwBSUskk1WCq0TVRTxe1xWAiHZ2i0iw==}
     peerDependencies:
       localforage: ^1.7.4
 
-  '@magic-sdk/types@11.6.2':
-    resolution: {integrity: sha512-+Emd+9HeeVi2E0bktJ33YleA/ozEuKYCBfmSbGRxlntdyUvaojeC+WPf2jN1WH8FjUEiljAjrEJTTZyRGCL8SQ==}
-
-  '@magic-sdk/types@17.3.0':
-    resolution: {integrity: sha512-0mTFr1qDJ94pOJkFu1oZ/s2KnV7lHgILvWuFh7fs7ugyn7z9M7euP9g+Bv+kEdZ6ja4QlNi+UR0OryaXowv75w==}
+  '@magic-sdk/types@15.8.0':
+    resolution: {integrity: sha512-xLQsBAg2JXUn39dRfZW6Z3LUT50qz/3pg6R658oVBr4LbJd/L8iAR0zCRmjLLNXzfYm1RkJYZWuHaxjJgKlkSA==}
 
   '@motionone/animation@10.18.0':
     resolution: {integrity: sha512-9z2p5GFGCm0gBsZbi8rVMOAJCtw1WqBTIPw3ozk06gDvZInBPIsQcHgYogEJ4yuHJ+akuW8g1SEIOpTOvYs8hw==}
@@ -888,6 +887,9 @@ packages:
 
   crossws@0.3.4:
     resolution: {integrity: sha512-uj0O1ETYX1Bh6uSgktfPvwDiPYGQ3aI4qVsaC/LWpkIzGj1nUYm5FK3K+t11oOlpN01lGbprFCH4wBlKdJjVgw==}
+
+  crypto-js@3.3.0:
+    resolution: {integrity: sha512-DIT51nX0dCfKltpRiXV+/TVZq+Qq2NgF4644+K7Ttnla7zEzqc+kjJyiB96BHNyUTBxyjzRcZYpUdZa+QAqi6Q==}
 
   cssesc@3.0.0:
     resolution: {integrity: sha512-/Tb/JcjK111nNScGob5MNtsntNM1aCNUDipB/TkwZFhyDrrE47SOx/18wF2bbjgc3ZzCSKW1T5nt5EbFoAz/Vg==}
@@ -1795,8 +1797,8 @@ packages:
   lru-cache@10.4.3:
     resolution: {integrity: sha512-JNAzZcXrCt42VGLuYz0zfAzDfAvJWW6AfYlDBQyDV5DClI2m5sAmK+OIO7s59XfsRsWHp02jAJrRadPRGTt6SQ==}
 
-  magic-sdk@21.5.0:
-    resolution: {integrity: sha512-LNSTJGOO1wtJSwoEnO8ehH3RePdYc3lc0pD+SGZWyY78Ly6CgNE15lILBGJvpdaZjZd6wVqDYOf6Hh+PayuNKg==}
+  magic-sdk@18.6.0:
+    resolution: {integrity: sha512-6FdgZEKVEFZvrGlth2ZiipTEr7ihe0E4wbnPk1WlK3xIxFg3Gr5/Ca1PgWdkvNjKxjngySYykLXdCnwuNjt19w==}
 
   math-intrinsics@1.1.0:
     resolution: {integrity: sha512-/IXtbwEk5HTPyEwyKX6hGkYXxM9nbj64B+ilVJnC/R6B0pH5G4V3b0pVbL7DBj4tkhBAppbQUlf6F6Xl9LHu1g==}
@@ -2924,6 +2926,7 @@ packages:
   yaeti@0.0.6:
     resolution: {integrity: sha512-MvQa//+KcZCUkBTIC9blM+CU9J2GzuTytsOUwf2lidtvkx/6gnEp1QvJv34t9vdjhFmha/mUiNDbN0D0mJWdug==}
     engines: {node: '>=0.10.32'}
+    deprecated: Package no longer supported. Contact Support at https://www.npmjs.com/support for more info.
 
   yaml@2.7.0:
     resolution: {integrity: sha512-+hSoy/QHluxmC9kCIJyL/uyFmLmc+e5CFR5Wa+bpIhIj85LVb9ZH2nVnqrHoSvKogwODv0ClqZkmiSSaIH5LTA==}
@@ -3105,34 +3108,34 @@ snapshots:
     dependencies:
       '@lit-labs/ssr-dom-shim': 1.3.0
 
-  '@magic-ext/flow@8.7.2(@onflow/fcl@1.13.5(@types/react@18.3.18)(bufferutil@4.0.9)(encoding@0.1.13)(google-protobuf@3.21.4)(jiti@1.21.7)(postcss@8.5.3)(react@18.3.1)(typescript@5.8.2)(utf-8-validate@5.0.10)(zod@3.24.2))(@onflow/types@1.4.1)':
+  '@magic-ext/flow@24.0.0(@onflow/fcl@1.13.5(@types/react@18.3.18)(bufferutil@4.0.9)(encoding@0.1.13)(google-protobuf@3.21.4)(jiti@1.21.7)(postcss@8.5.3)(react@18.3.1)(typescript@5.8.2)(utf-8-validate@5.0.10)(zod@3.24.2))(@onflow/types@1.4.1)':
     dependencies:
       '@onflow/fcl': 1.13.5(@types/react@18.3.18)(bufferutil@4.0.9)(encoding@0.1.13)(google-protobuf@3.21.4)(jiti@1.21.7)(postcss@8.5.3)(react@18.3.1)(typescript@5.8.2)(utf-8-validate@5.0.10)(zod@3.24.2)
       '@onflow/types': 1.4.1
 
-  '@magic-ext/oauth@7.6.2':
+  '@magic-ext/oauth@23.0.0':
     dependencies:
-      '@magic-sdk/types': 11.6.2
+      crypto-js: 3.3.0
 
-  '@magic-ext/solana@11.1.0': {}
-
-  '@magic-sdk/commons@17.5.0(@magic-sdk/provider@21.5.0(localforage@1.10.0))(@magic-sdk/types@17.3.0)':
+  '@magic-ext/solana@26.0.0(@solana/web3.js@1.98.0(bufferutil@4.0.9)(encoding@0.1.13)(utf-8-validate@5.0.10))':
     dependencies:
-      '@magic-sdk/provider': 21.5.0(localforage@1.10.0)
-      '@magic-sdk/types': 17.3.0
+      '@solana/web3.js': 1.98.0(bufferutil@4.0.9)(encoding@0.1.13)(utf-8-validate@5.0.10)
 
-  '@magic-sdk/provider@21.5.0(localforage@1.10.0)':
+  '@magic-sdk/commons@14.6.0(@magic-sdk/provider@18.6.0(localforage@1.10.0))(@magic-sdk/types@15.8.0)':
     dependencies:
-      '@magic-sdk/types': 17.3.0
+      '@magic-sdk/provider': 18.6.0(localforage@1.10.0)
+      '@magic-sdk/types': 15.8.0
+
+  '@magic-sdk/provider@18.6.0(localforage@1.10.0)':
+    dependencies:
+      '@magic-sdk/types': 15.8.0
       eventemitter3: 4.0.7
       localforage: 1.10.0
       web3-core: 1.5.2
     transitivePeerDependencies:
       - supports-color
 
-  '@magic-sdk/types@11.6.2': {}
-
-  '@magic-sdk/types@17.3.0': {}
+  '@magic-sdk/types@15.8.0': {}
 
   '@motionone/animation@10.18.0':
     dependencies:
@@ -4243,6 +4246,8 @@ snapshots:
   crossws@0.3.4:
     dependencies:
       uncrypto: 0.1.3
+
+  crypto-js@3.3.0: {}
 
   cssesc@3.0.0: {}
 
@@ -5377,11 +5382,11 @@ snapshots:
 
   lru-cache@10.4.3: {}
 
-  magic-sdk@21.5.0:
+  magic-sdk@18.6.0:
     dependencies:
-      '@magic-sdk/commons': 17.5.0(@magic-sdk/provider@21.5.0(localforage@1.10.0))(@magic-sdk/types@17.3.0)
-      '@magic-sdk/provider': 21.5.0(localforage@1.10.0)
-      '@magic-sdk/types': 17.3.0
+      '@magic-sdk/commons': 14.6.0(@magic-sdk/provider@18.6.0(localforage@1.10.0))(@magic-sdk/types@15.8.0)
+      '@magic-sdk/provider': 18.6.0(localforage@1.10.0)
+      '@magic-sdk/types': 15.8.0
       localforage: 1.10.0
     transitivePeerDependencies:
       - supports-color

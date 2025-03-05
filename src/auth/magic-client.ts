@@ -12,8 +12,6 @@ import { getFlowNetworkUrl, getSolanaNetworkUrl } from '../utils/network';
 export class MagicClientAuthProvider implements AuthProvider {
 	private config: WalletConfig;
 	private magic: any = null;
-	private magicSolana: any = null;
-	private magicFlow: any = null;
 	private solanaConnection: Connection | null = null;
 	private currentUser: UserData | null = null;
 	private didToken: string = '';
@@ -36,27 +34,29 @@ export class MagicClientAuthProvider implements AuthProvider {
 				this.config.apiKey.substring(0, 8) + '...'
 			);
 
-			// Initialize Magic in the simplest way possible to avoid type errors
-			console.log('Creating base Magic instance...');
-			this.magic = await this.createMagicInstance();
-
-			if (!this.magic) {
-				throw new Error('Failed to create Magic instance');
-			}
-
-			console.log('Magic instance created successfully');
-
 			// Initialize network connections
 			const network = this.config.network || 'testnet';
 			const solanaRpcUrl = getSolanaNetworkUrl(
 				network === 'mainnet' ? 'mainnet' : 'testnet'
 			);
-			this.solanaConnection = new Connection(solanaRpcUrl);
-
 			const flowRpcUrl = getFlowNetworkUrl(
 				network === 'mainnet' ? 'mainnet' : 'testnet'
 			);
+
+			// Initialize solana connection
+			this.solanaConnection = new Connection(solanaRpcUrl);
 			fcl.config().put('accessNode.api', flowRpcUrl);
+
+			// Initialize Magic SDK in the simplest possible way for Next.js
+			await this.initializeMagicInBrowser(
+				solanaRpcUrl,
+				flowRpcUrl,
+				network
+			);
+
+			if (!this.magic) {
+				throw new Error('Failed to create Magic instance');
+			}
 
 			// Check if user is already logged in
 			console.log('Checking if user is already logged in...');
@@ -76,40 +76,104 @@ export class MagicClientAuthProvider implements AuthProvider {
 		return Promise.resolve();
 	}
 
-	// Create Magic instance safely with dynamic imports
-	private async createMagicInstance() {
+	// Simplified initialization method that works better with Next.js
+	private async initializeMagicInBrowser(
+		solanaRpcUrl: string,
+		flowRpcUrl: string,
+		network: string
+	) {
+		// Only run in browser
+		if (typeof window === 'undefined') {
+			return false;
+		}
+
 		try {
-			// Simple dynamic import of the main Magic SDK
-			const magicModule = await import('magic-sdk');
-			const Magic = magicModule.Magic;
+			// Use eval to avoid Next.js from statically analyzing the imports
+			// This is a workaround for Next.js module resolution issues
+			const initCode = `
+				async function initMagic(apiKey, solanaRpcUrl, flowRpcUrl, network) {
+					try {
+						// Import Magic SDK
+						const { Magic } = await import('magic-sdk');
+						
+						// Initialize extensions array
+						const extensions = [];
+						
+						// Try to load Solana extension
+						try {
+							const solanaModule = await import('@magic-ext/solana').catch(() => null);
+							if (solanaModule && solanaModule.SolanaExtension) {
+								extensions.push(new solanaModule.SolanaExtension({
+									rpcUrl: solanaRpcUrl
+								}));
+								console.log('Solana extension loaded');
+							}
+						} catch (err) {
+							console.warn('Could not load Solana extension:', err);
+						}
+						
+						// Try to load Flow extension
+						try {
+							const flowModule = await import('@magic-ext/flow').catch(() => null);
+							if (flowModule && flowModule.FlowExtension) {
+								extensions.push(new flowModule.FlowExtension({
+									rpcUrl: flowRpcUrl,
+									network: network === 'mainnet' ? 'mainnet' : 'testnet'
+								}));
+								console.log('Flow extension loaded');
+							}
+						} catch (err) {
+							console.warn('Could not load Flow extension:', err);
+						}
+						
+						// Try to load OAuth extension - SAFELY HANDLING MISSING MODULE
+						try {
+							// Dynamically import OAuth extension - this will be skipped if module not found
+							const oauthModule = await import('@magic-ext/oauth').catch(() => null);
+							if (oauthModule && oauthModule.OAuthExtension) {
+								extensions.push(new oauthModule.OAuthExtension());
+								console.log('OAuth extension loaded');
+							} else {
+								console.log('OAuth extension not available - skipping');
+							}
+						} catch (err) {
+							console.warn('Could not load OAuth extension (this is okay):', err);
+							// Continue without OAuth extension - this is expected if package isn't installed
+						}
+						
+						// Create Magic instance with available extensions
+						const magic = new Magic(apiKey, { 
+							extensions: extensions.length > 0 ? extensions : undefined 
+						});
+						
+						console.log('Magic SDK initialized with ' + extensions.length + ' extensions');
+						return magic;
+					} catch (error) {
+						console.error('Error initializing Magic:', error);
+						return null;
+					}
+				}
+				return initMagic("${this.config.apiKey}", "${solanaRpcUrl}", "${flowRpcUrl}", "${network}");
+			`;
 
-			if (!Magic) {
-				console.error('Magic constructor not found in imported module');
-				return null;
-			}
+			// Execute the initialization code
+			console.log('Initializing Magic using browser evaluation...');
+			// Use Function constructor instead of eval for better scoping
+			const initFunction = new Function(initCode);
+			this.magic = await initFunction();
 
-			console.log('Magic constructor found, creating instance');
-			// Create a basic instance without extensions first
-			const instance = new Magic(this.config.apiKey);
-			console.log('Basic Magic instance created');
-
-			// Also create the blockchain-specific instances if needed
-			try {
+			if (this.magic) {
 				console.log(
-					'Creating specialized instances will be done later if needed'
+					'Magic initialized successfully with custom loader'
 				);
-			} catch (extError) {
-				console.error(
-					'Error creating blockchain extensions:',
-					extError
-				);
-				// Continue with just the basic instance
+				return true;
+			} else {
+				console.error('Failed to initialize Magic with custom loader');
+				return false;
 			}
-
-			return instance;
 		} catch (error) {
-			console.error('Error in createMagicInstance:', error);
-			return null;
+			console.error('Error in initializeMagicInBrowser:', error);
+			return false;
 		}
 	}
 
@@ -194,23 +258,60 @@ export class MagicClientAuthProvider implements AuthProvider {
 		solanaAddress: string;
 		flowAddress: string;
 	}> {
-		console.log('Generating addresses for user:', userId);
+		console.log('Generating blockchain addresses for user:', userId);
 
-		// For now, we'll create deterministic addresses as a fallback
-		// Later we can implement the actual blockchain-specific logic
-		try {
-			return {
-				// Generate deterministic addresses from userId
-				solanaAddress: `solana-${userId.substring(0, 16)}`,
-				flowAddress: `0x${userId.substring(0, 16)}`,
-			};
-		} catch (error) {
-			console.error('Error in generateAddresses:', error);
-			return {
-				solanaAddress: `solana-${userId.substring(0, 16)}`,
-				flowAddress: `0x${userId.substring(0, 16)}`,
-			};
+		// Initialize with fallback addresses in case something fails
+		let solanaAddress = `solana-${userId.substring(0, 16)}`;
+		let flowAddress = `0x${userId.substring(0, 16)}`;
+
+		if (!this.magic) {
+			console.error(
+				'Magic SDK not initialized, using fallback addresses'
+			);
+			return { solanaAddress, flowAddress };
 		}
+
+		// Try to get Solana address if the extension is available
+		try {
+			if (this.magic.solana) {
+				console.log('Getting Solana address from Magic...');
+				const address = await this.magic.solana.getAccount();
+				console.log('Got Solana address:', address);
+				if (address) {
+					solanaAddress = address;
+				}
+			} else {
+				console.warn(
+					'Solana extension not available in Magic instance'
+				);
+			}
+		} catch (solanaError) {
+			console.error('Error getting Solana address:', solanaError);
+		}
+
+		// Try to get Flow address if the extension is available
+		try {
+			if (this.magic.flow) {
+				console.log('Getting Flow address from Magic...');
+				const address = await this.magic.flow.getAccount();
+				console.log('Got Flow address:', address);
+				if (address) {
+					flowAddress = address;
+				}
+			} else {
+				console.warn('Flow extension not available in Magic instance');
+			}
+		} catch (flowError) {
+			console.error('Error getting Flow address:', flowError);
+		}
+
+		// Log the final addresses we're using
+		console.log('Using addresses:', { solanaAddress, flowAddress });
+
+		return {
+			solanaAddress,
+			flowAddress,
+		};
 	}
 
 	/**
@@ -219,8 +320,6 @@ export class MagicClientAuthProvider implements AuthProvider {
 	getMagicInstances() {
 		return {
 			magic: this.magic,
-			magicSolana: this.magicSolana,
-			magicFlow: this.magicFlow,
 			solanaConnection: this.solanaConnection,
 		};
 	}
@@ -264,8 +363,9 @@ export class MagicClientAuthProvider implements AuthProvider {
 				userMetadata.issuer || userMetadata.email || 'unknown-user';
 
 			// Get blockchain addresses
-			console.log('Generating addresses...');
+			console.log('Generating blockchain addresses...');
 			const addresses = await this.generateAddresses(userId);
+			console.log('Generated addresses:', addresses);
 
 			this.currentUser = {
 				id: userId,

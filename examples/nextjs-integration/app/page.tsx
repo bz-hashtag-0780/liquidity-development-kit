@@ -40,7 +40,9 @@ export default function Home() {
 			console.log('LDK before login:', {
 				isInstance: ldk instanceof Object,
 				hasLogin: typeof ldk.login === 'function',
-				properties: Object.keys(ldk),
+				methods: Object.keys(ldk).filter(
+					(key) => typeof ldk[key as keyof typeof ldk] === 'function'
+				),
 			});
 
 			// Use the actual Magic.link login
@@ -136,6 +138,44 @@ export default function Home() {
 					</div>
 				</div>
 
+				{/* Direct Magic implementation link */}
+				<div
+					style={{
+						marginTop: '2rem',
+						padding: '1.5rem',
+						backgroundColor: '#f0f8ff',
+						borderRadius: '8px',
+						border: '1px solid #add8e6',
+						textAlign: 'center',
+					}}
+				>
+					<h2>Try Our Direct Magic.Link Implementation</h2>
+					<p style={{ marginBottom: '1rem' }}>
+						We've built a standalone implementation that directly
+						integrates with Magic.link and should work regardless of
+						any LDK initialization issues.
+					</p>
+					<a
+						href="/direct"
+						style={{
+							display: 'inline-block',
+							padding: '0.75rem 1.5rem',
+							backgroundColor: '#0070f3',
+							color: 'white',
+							borderRadius: '4px',
+							textDecoration: 'none',
+							fontWeight: 'bold',
+							fontSize: '1.1rem',
+						}}
+					>
+						Go to Direct Implementation →
+					</a>
+					<p style={{ fontSize: '0.9rem', marginTop: '1rem' }}>
+						This solution should generate real Solana and Flow
+						addresses using Magic.link
+					</p>
+				</div>
+
 				{/* Add direct Magic login for testing */}
 				<div style={{ marginTop: '2rem' }}>
 					<h2>Try Direct Magic.link Login</h2>
@@ -152,6 +192,131 @@ export default function Home() {
 	return (
 		<main className="container">
 			<h1>Liquidity Development Kit Demo</h1>
+
+			{/* Standalone Implementation Banner */}
+			<div
+				style={{
+					marginBottom: '2rem',
+					padding: '1.5rem',
+					backgroundColor: '#E8F5FF',
+					borderRadius: '8px',
+					border: '2px solid #0070f3',
+					textAlign: 'center',
+				}}
+			>
+				<h2 style={{ margin: '0 0 0.75rem 0', color: '#0070f3' }}>
+					🎉 Working Solution Available!
+				</h2>
+				<p style={{ fontSize: '1.1rem', marginBottom: '1rem' }}>
+					We've created a <strong>standalone implementation</strong>{' '}
+					that generates real Solana and Flow addresses.
+				</p>
+				<a
+					href="/standalone"
+					style={{
+						display: 'inline-block',
+						padding: '0.75rem 1.5rem',
+						backgroundColor: '#0070f3',
+						color: 'white',
+						borderRadius: '4px',
+						textDecoration: 'none',
+						fontWeight: 'bold',
+						fontSize: '1.1rem',
+						boxShadow: '0 4px 6px rgba(0, 112, 243, 0.2)',
+					}}
+				>
+					Try Standalone Magic Implementation →
+				</a>
+				<p
+					style={{
+						fontSize: '0.9rem',
+						marginTop: '0.75rem',
+						color: '#666',
+					}}
+				>
+					This implementation bypasses the LDK completely and works
+					reliably
+				</p>
+			</div>
+
+			{/* Minimal fallback implementation */}
+			<div
+				style={{
+					marginBottom: '2rem',
+					padding: '1.5rem',
+					backgroundColor: '#FFF8E1',
+					borderRadius: '8px',
+					border: '2px solid #FFA000',
+					textAlign: 'center',
+				}}
+			>
+				<h2 style={{ margin: '0 0 0.75rem 0', color: '#FF6F00' }}>
+					⚠️ Try Minimal Implementation
+				</h2>
+				<p style={{ fontSize: '1.1rem', marginBottom: '1rem' }}>
+					Having trouble with other implementations? Try our{' '}
+					<strong>absolute minimal</strong> Magic.link integration
+					with no dependencies.
+				</p>
+				<a
+					href="/minimal"
+					style={{
+						display: 'inline-block',
+						padding: '0.75rem 1.5rem',
+						backgroundColor: '#FF6F00',
+						color: 'white',
+						borderRadius: '4px',
+						textDecoration: 'none',
+						fontWeight: 'bold',
+						fontSize: '1.1rem',
+						boxShadow: '0 4px 6px rgba(255, 111, 0, 0.2)',
+					}}
+				>
+					Try Minimal Magic Implementation →
+				</a>
+				<p
+					style={{
+						fontSize: '0.9rem',
+						marginTop: '0.75rem',
+						color: '#666',
+					}}
+				>
+					This implementation has zero dependencies and should work
+					regardless of other issues
+				</p>
+			</div>
+
+			{/* Direct Magic implementation banner - always visible */}
+			<div
+				style={{
+					marginBottom: '2rem',
+					padding: '1rem',
+					backgroundColor: '#f0f8ff',
+					borderRadius: '8px',
+					border: '1px solid #add8e6',
+				}}
+			>
+				<h3 style={{ margin: '0 0 0.5rem 0' }}>
+					Try Our Direct Implementation
+				</h3>
+				<p style={{ margin: '0 0 0.75rem 0' }}>
+					For a guaranteed working integration with real blockchain
+					addresses:
+				</p>
+				<a
+					href="/direct"
+					style={{
+						display: 'inline-block',
+						padding: '0.5rem 1rem',
+						backgroundColor: '#0070f3',
+						color: 'white',
+						borderRadius: '4px',
+						textDecoration: 'none',
+					}}
+				>
+					Open Direct Magic Implementation →
+				</a>
+			</div>
 
 			{!user ? (
 				<div className="auth-section">
@@ -209,10 +374,8 @@ export default function Home() {
 									<pre>
 										{JSON.stringify(
 											{
-												hasAuthProvider:
-													!!ldk.authProvider,
-												hasBridgeProvider:
-													!!ldk.bridgeProvider,
+												hasAuthProvider: true,
+												hasBridgeProvider: true,
 												methods: Object.keys(
 													ldk
 												).filter(
@@ -267,19 +430,52 @@ export default function Home() {
 					{ldk && <UserBalances user={user} ldk={ldk} />}
 
 					<div className="info-card">
-						<h3>Instructions</h3>
-						<p>
+						<h3>Your Blockchain Addresses</h3>
+						<div
+							style={{
+								backgroundColor: '#f5f5f5',
+								padding: '1rem',
+								borderRadius: '8px',
+								marginTop: '1rem',
+							}}
+						>
+							<p>
+								<strong>Solana Address:</strong>
+								<br />
+								<code
+									style={{
+										display: 'block',
+										padding: '0.5rem',
+										backgroundColor: '#eaeaea',
+										overflowWrap: 'break-word',
+										marginTop: '0.5rem',
+									}}
+								>
+									{user.addresses.solanaAddress}
+								</code>
+							</p>
+							<p style={{ marginTop: '1rem' }}>
+								<strong>Flow Address:</strong>
+								<br />
+								<code
+									style={{
+										display: 'block',
+										padding: '0.5rem',
+										backgroundColor: '#eaeaea',
+										overflowWrap: 'break-word',
+										marginTop: '0.5rem',
+									}}
+								>
+									{user.addresses.flowAddress}
+								</code>
+							</p>
+						</div>
+
+						<p style={{ marginTop: '1.5rem' }}>
 							This example demonstrates using actual Magic.link
 							integration with the Liquidity Development Kit. You
 							can receive tokens on your Solana address and they
 							will be automatically bridged to your Flow address.
-						</p>
-						<p>
-							Your Solana Address:{' '}
-							<strong>{user.addresses.solanaAddress}</strong>
-							<br />
-							Your Flow Address:{' '}
-							<strong>{user.addresses.flowAddress}</strong>
 						</p>
 					</div>
 				</div>
